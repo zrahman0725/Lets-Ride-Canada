@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employment Details</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/employment-details.css">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span>⏱️ ~2 minutes left</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 53%;"></div>
+        </div>
+    </div>
+
+    <!-- Compact Summary -->
+    <div class="compact-summary">
+        <div class="summary-item">
+            <img id="vehicle-image" src="" alt="Selected Vehicle" />
+            <span id="vehicle-summary">Vehicle: ...</span>
+        </div>
+        <div class="summary-item">
+            <span id="budget-summary">Budget: ...</span>
+        </div>
+    </div>
+
+    <!-- Employment Details Section -->
+    <section class="employment-details-section">
+        <h2>Your Employment Details</h2>
+        <input type="text" id="company-name" placeholder="Company Name" />
+        <input type="text" id="position-title" placeholder="Position Title" />
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="employment-duration.html" class="btn back-btn">Back</a>
+            <a href="address.html" class="btn next-btn">Next</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

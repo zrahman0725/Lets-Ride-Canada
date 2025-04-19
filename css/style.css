@@ -1,0 +1,162 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.hero {
+    background: linear-gradient(135deg, #d2b48c, #ffffff);
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin: 0.5em 0;
+}
+
+.hero p {
+    margin: 0.5em 0 1em;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.cta-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.primary {
+    background-color: #d2b48c;
+    color: white;
+}
+
+.secondary {
+    background-color: #333;
+    color: white;
+}
+
+.primary:hover {
+    background-color: #eee;
+}
+
+.secondary:hover {
+    background-color: #555;
+}
+
+.info-section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.light {
+    background-color: #f1f1f1;
+}
+
+.vehicle-types {
+    background-color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.vehicle {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.2s;
+}
+
+.vehicle:hover {
+    transform: scale(1.05);
+}
+
+.final-cta {
+    background-color: #e6e6e6;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.hero-content, .hero-image {
+    /* display: inline-block; */
+    vertical-align: middle;
+}
+
+.hero-image img {
+    width: 50rem;
+    height: auto;
+    margin-left: 20px;
+}
+
+.info-section img, .final-cta img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+    display: inline-block;
+    justify-content: left;
+
+}
+
+.vehicle img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+/* Progress bar styles */
+.progress-container {
+    background-color: #f1f1f1;
+    padding: 15px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    height: 12px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #d2b48c;
+    width: 20%;
+    border-radius: 8px;
+    transition: width 0.4s ease;
+}
+
+.selected {
+    background-color: #d2b48c;
+    border: 2px solid #8b5e3c;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+

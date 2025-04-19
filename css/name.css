@@ -1,0 +1,87 @@
+.compact-summary {
+    background-color: #f7f1e8;
+    border: 1px solid #d2b48c;
+    border-radius: 10px;
+    padding: 10px 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.compact-summary .summary-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.compact-summary img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.name-section {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.name-section input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.name-section input:focus {
+    outline: none;
+    border-color: #d2b48c;
+}
+
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-align: center;
+    font-weight: bold;
+}
+
+.back-btn {
+    background-color: #ccc;
+    color: #333;
+    width: 100px;
+}
+
+.next-btn {
+    background-color: #d2b48c;
+    color: white;
+    width: 300px;
+}
+
+.next-btn:hover {
+    background-color: #bfa177;
+}
+
+.back-btn:hover {
+    background-color: #bbb;
+}

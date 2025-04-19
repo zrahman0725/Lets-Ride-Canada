@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Address Duration</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/address-duration.css">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span>⏱️ ~2 minutes left</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 66.6%;"></div>
+        </div>
+    </div>
+
+    <!-- Compact Summary -->
+    <div class="compact-summary">
+        <div class="summary-item">
+            <img id="vehicle-image" src="" alt="Selected Vehicle" />
+            <span id="vehicle-summary">Vehicle: ...</span>
+        </div>
+        <div class="summary-item">
+            <span id="budget-summary">Budget: ...</span>
+        </div>
+    </div>
+
+    <!-- Address Duration Section -->
+    <section class="duration-section">
+        <h2>How Long Have You Lived at This Address?</h2>
+        <div class="duration-inputs">
+            <div class="duration-box">
+                <input type="number" id="address-years" min="0" placeholder="0" />
+                <span>Years</span>
+            </div>
+            <div class="duration-box">
+                <input type="number" id="address-months" min="0" max="11" placeholder="0" />
+                <span>Months</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="address.html" class="btn back-btn">Back</a>
+            <a href="housing.html" class="btn next-btn">Next</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

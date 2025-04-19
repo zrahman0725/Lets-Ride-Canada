@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Residency and License</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/residency.css">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span>⏱️ ~1 minute left</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 78%;"></div>
+        </div>
+    </div>
+
+    <!-- Compact Summary -->
+    <div class="compact-summary">
+        <div class="summary-item">
+            <img id="vehicle-image" src="" alt="Selected Vehicle" />
+            <span id="vehicle-summary">Vehicle: ...</span>
+        </div>
+        <div class="summary-item">
+            <span id="budget-summary">Budget: ...</span>
+        </div>
+    </div>
+
+    <!-- Residency Section -->
+    <section class="residency-section">
+        <h2>Are You a Canadian Citizen or Permanent Resident?</h2>
+        <div class="yes-no-group" id="citizenship-options">
+            <div class="yes-no-option">Yes</div>
+            <div class="yes-no-option">No</div>
+        </div>
+
+        <h2>Do You Have a Valid Canadian Driver’s License?</h2>
+        <div class="yes-no-group" id="license-options">
+            <div class="yes-no-option">Yes</div>
+            <div class="yes-no-option">No</div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="housing.html" class="btn back-btn">Back</a>
+            <a href="dob.html" class="btn next-btn">Next</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Address</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/address.css">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span>⏱️ ~2 minutes left</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%;"></div>
+        </div>
+    </div>
+
+    <!-- Compact Summary -->
+    <div class="compact-summary">
+        <div class="summary-item">
+            <img id="vehicle-image" src="" alt="Selected Vehicle" />
+            <span id="vehicle-summary">Vehicle: ...</span>
+        </div>
+        <div class="summary-item">
+            <span id="budget-summary">Budget: ...</span>
+        </div>
+    </div>
+
+    <!-- Address Input Section -->
+    <section class="address-section">
+        <h2>Where Do You Live?</h2>
+
+        <!-- Autocomplete Address Field -->
+        <input type="text" id="autocomplete-address" placeholder="Start typing your address..." />
+
+        <p class="manual-toggle" id="toggle-manual">Don't see your address? <span>Enter it manually</span></p>
+
+        <!-- Hidden Manual Entry -->
+        <div class="manual-address hidden" id="manual-address">
+            <input type="text" id="street" placeholder="Street Address" />
+            <input type="text" id="city" placeholder="City" />
+            <input type="text" id="province" placeholder="Province" />
+            <input type="text" id="postal-code" placeholder="Postal Code" />
+        </div>
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="employment-details.html" class="btn back-btn">Back</a>
+            <a href="address-duration.html" class="btn next-btn">Next</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

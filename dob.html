@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date of Birth</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dob.css">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span>⏱️ ~1 minute left</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 84%;"></div>
+        </div>
+    </div>
+
+    <!-- Compact Summary -->
+    <div class="compact-summary">
+        <div class="summary-item">
+            <img id="vehicle-image" src="" alt="Selected Vehicle" />
+            <span id="vehicle-summary">Vehicle: ...</span>
+        </div>
+        <div class="summary-item">
+            <span id="budget-summary">Budget: ...</span>
+        </div>
+    </div>
+
+    <!-- DOB Input -->
+    <section class="dob-section">
+        <h2>What Is Your Date of Birth?</h2>
+        <input type="text" id="dob" placeholder="dd/mm/yyyy" />
+
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="residency.html" class="btn back-btn">Back</a>
+            <a href="name.html" class="btn next-btn">Next</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

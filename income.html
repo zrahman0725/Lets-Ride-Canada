@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monthly Income</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/income.css">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span>⏱️ ~3 minutes left</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 37%;"></div>
+        </div>
+    </div>
+
+    <!-- Compact Summary -->
+    <div class="compact-summary">
+        <div class="summary-item">
+            <img id="vehicle-image" src="" alt="Selected Vehicle" />
+            <span id="vehicle-summary">Vehicle: ...</span>
+        </div>
+        <div class="summary-item">
+            <span id="budget-summary">Budget: ...</span>
+        </div>
+    </div>
+
+    <!-- Income Section -->
+    <section class="income-section">
+        <h2>What is Your Monthly Income?</h2>
+        <input type="number" id="monthly-income" placeholder="Enter amount in $CAD" />
+        
+        <!-- Navigation -->
+        <div class="nav-buttons">
+            <a href="employment.html" class="btn back-btn">Back</a>
+            <a href="employment-duration.html" class="btn next-btn">Next</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

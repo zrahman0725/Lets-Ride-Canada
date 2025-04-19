@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Info</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span>⏱️ Final step</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <!-- Compact Summary -->
+    <div class="compact-summary">
+        <div class="summary-item">
+            <img id="vehicle-image" src="" alt="Selected Vehicle" />
+            <span id="vehicle-summary">Vehicle: ...</span>
+        </div>
+        <div class="summary-item">
+            <span id="budget-summary">Budget: ...</span>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2>How Can We Reach You?</h2>
+        <input type="email" id="email" placeholder="Email Address" />
+        <input type="tel" id="phone" placeholder="Phone Number" />
+
+        <!-- Consent -->
+        <div class="consent-box">
+            <input type="checkbox" id="consent-checkbox" />
+            <label for="consent-checkbox">
+                I agree to the <a href="terms.html" target="_blank">Terms & Conditions</a> and <a href="privacy.html" target="_blank">Privacy Policy</a>.
+            </label>
+        </div>
+
+        <!-- Final Submit Button -->
+        <div class="nav-buttons">
+            <a href="name.html" class="btn back-btn">Back</a>
+            <button class="btn next-btn" id="submit-btn" disabled>Submit Application</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        const consentCheckbox = document.getElementById('consent-checkbox');
+        const submitBtn = document.getElementById('submit-btn');
+
+        consentCheckbox.addEventListener('change', () => {
+            submitBtn.disabled = !consentCheckbox.checked;
+        });
+
+        submitBtn.addEventListener('click', () => {
+            alert("Thank you! Your application has been submitted successfully.");
+            // You can add actual submission logic here
+        });
+    </script>
+    <script>
+        submitBtn.addEventListener('click', async () => {
+            const applicationData = {
+                vehicle: localStorage.getItem('selectedVehicle'),
+                budget: localStorage.getItem('selectedBudget'),
+                tradeIn: localStorage.getItem('tradeInChoice'),
+                creditScore: localStorage.getItem('creditStatus'),
+                employmentStatus: localStorage.getItem('employmentStatus'),
+                monthlyIncome: localStorage.getItem('monthlyIncome'),
+                employmentYears: localStorage.getItem('employmentYears'),
+                employmentMonths: localStorage.getItem('employmentMonths'),
+                company: localStorage.getItem('employmentCompany'),
+                position: localStorage.getItem('employmentPosition'),
+                addressAuto: localStorage.getItem('autocompleteAddress'),
+                street: localStorage.getItem('address_street'),
+                city: localStorage.getItem('address_city'),
+                province: localStorage.getItem('address_province'),
+                postalCode: localStorage.getItem('address_postal-code'),
+                addressYears: localStorage.getItem('addressYears'),
+                addressMonths: localStorage.getItem('addressMonths'),
+                housingType: localStorage.getItem('housingType'),
+                monthlyHousingPayment: localStorage.getItem('monthlyHousingPayment'),
+                isCanadianResident: localStorage.getItem('isCanadianResident'),
+                hasCanadianLicense: localStorage.getItem('hasCanadianLicense'),
+                userDOB: localStorage.getItem('userDOB'),
+                firstName: localStorage.getItem('firstName'),
+                lastName: localStorage.getItem('lastName'),
+                email: localStorage.getItem('userEmail'),
+                phone: localStorage.getItem('userPhone'),
+                submittedAt: new Date().toISOString()
+            };
+        
+            try {
+                await db.collection('applications').add(applicationData);
+                alert("Thank you! Your application has been submitted.");
+                localStorage.clear();
+                window.location.href = "index.html";
+            } catch (error) {
+                console.error("Error submitting application: ", error);
+                alert("There was an error submitting your application. Please try again.");
+            }
+        });
+        </script>
+        
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // ✅ Replace with your actual config
+  const firebaseConfig = {
+  apiKey: "AIzaSyCLIJCbi0e1-sAC8S7o3t8lNlqZUXgJZhw",
+  authDomain: "let-s-ride-canada.firebaseapp.com",
+  projectId: "let-s-ride-canada",
+  storageBucket: "let-s-ride-canada.firebasestorage.app",
+  messagingSenderId: "395368324236",
+  appId: "1:395368324236:web:2b4f5d1cd5e27a3d9cefa9",
+  measurementId: "G-NWT16E3SR8"
+};
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
+</body>
+</html>

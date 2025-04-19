@@ -1,0 +1,78 @@
+
+
+/* Centered vehicle grid */
+.centered {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.vehicle-grid.compact {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 20px auto;
+}
+
+.vehicle {
+    text-align: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.next-button-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.next-btn {
+    background-color: #d2b48c;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.next-btn:hover {
+    background-color: #bfa177;
+}
+
+
+.vehicle img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.vehicle p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.vehicle:hover {
+    transform: scale(1.05);
+}
+
+.vehicle.selected {
+    background-color: #d2b48c;
+    border: 2px solid #8b5e3c;
+    color: white;
+}
+
+.vehicle.selected p {
+    color: white;
+}
