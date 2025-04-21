@@ -635,3 +635,14 @@ if (document.getElementById('email') && document.getElementById('phone')) {
     });
 }
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const preApprovalLinks = document.querySelectorAll('.clear-storage');
+
+    preApprovalLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            localStorage.clear();
+        });
+    });
+});

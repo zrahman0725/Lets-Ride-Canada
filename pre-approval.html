@@ -55,6 +55,25 @@
 
     
 <script src="script.js"></script>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedType = urlParams.get("type");
+    
+        if (selectedType) {
+            const vehicleOptions = document.querySelectorAll(".vehicle-grid .vehicle");
+    
+            vehicleOptions.forEach(vehicle => {
+                const label = vehicle.querySelector("p").innerText.trim().toLowerCase();
+                if (label.includes(selectedType.toLowerCase())) {
+                    vehicle.classList.add("selected");
+                    // Store the selection in localStorage if needed
+                    localStorage.setItem("selectedVehicleType", selectedType);
+                }
+            });
+        }
+    });
+    </script>
+    
 </body>
 </html>
