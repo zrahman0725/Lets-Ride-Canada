@@ -42,11 +42,51 @@
 
         <div class="nav-buttons">
             <a href="budget.html" class="btn back-btn">Back</a>
-            <a href="credit-score.html" class="btn next-btn">Next</a>
+            <a href="#" class="btn next-btn disabled" id="nextBtn">Next</a>
         </div>
     </section>
 
     <script src="script.js"></script>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const options = document.querySelectorAll(".trade-option");
+            const nextBtn = document.getElementById("nextBtn");
+        
+            // Restore selected option if any
+            const storedTrade = localStorage.getItem("tradeInStatus");
+            if (storedTrade) {
+                options.forEach(option => {
+                    if (option.textContent.trim().toLowerCase() === storedTrade.toLowerCase()) {
+                        option.classList.add("selected");
+                        nextBtn.classList.remove("disabled");
+                        nextBtn.href = "name.html";
+                    }
+                });
+            }
+        
+            // Handle selection
+            options.forEach(option => {
+                option.addEventListener("click", function () {
+                    options.forEach(o => o.classList.remove("selected"));
+                    this.classList.add("selected");
+        
+                    const selectedText = this.textContent.trim();
+                    localStorage.setItem("tradeInStatus", selectedText);
+        
+                    nextBtn.classList.remove("disabled");
+                    nextBtn.href = "name.html";
+        
+                    // Seamless redirect
+                    setTimeout(() => {
+                        document.body.classList.add("fade-out");
+                        setTimeout(() => {
+                            window.location.href = "name.html";
+                        }, 300);
+                    }, 150);
+                });
+            });
+        });
+        </script>
+        
 </body>
 </html>

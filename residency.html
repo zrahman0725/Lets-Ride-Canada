@@ -46,10 +46,56 @@
         <!-- Navigation -->
         <div class="nav-buttons">
             <a href="housing.html" class="btn back-btn">Back</a>
-            <a href="dob.html" class="btn next-btn">Next</a>
+            <a href="#" class="btn next-btn disabled" id="nextBtn">Next</a>
         </div>
     </section>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const citizenshipOptions = document.querySelectorAll("#citizenship-options .yes-no-option");
+            const licenseOptions = document.querySelectorAll("#license-options .yes-no-option");
+            const nextBtn = document.getElementById("nextBtn");
+        
+            function isSelected(group) {
+                return Array.from(group).some(option => option.classList.contains("selected"));
+            }
+        
+            function validateSelections() {
+                const citizenshipSelected = isSelected(citizenshipOptions);
+                const licenseSelected = isSelected(licenseOptions);
+        
+                if (citizenshipSelected && licenseSelected) {
+                    nextBtn.classList.remove("disabled");
+                    nextBtn.href = "dob.html";
+                } else {
+                    nextBtn.classList.add("disabled");
+                    nextBtn.href = "#";
+                }
+            }
+        
+            // Click logic
+            citizenshipOptions.forEach(option => {
+                option.addEventListener("click", function () {
+                    citizenshipOptions.forEach(o => o.classList.remove("selected"));
+                    this.classList.add("selected");
+                    validateSelections();
+                });
+            });
+        
+            licenseOptions.forEach(option => {
+                option.addEventListener("click", function () {
+                    licenseOptions.forEach(o => o.classList.remove("selected"));
+                    this.classList.add("selected");
+                    validateSelections();
+                });
+            });
+        
+            // Run on load to check restored selections
+            validateSelections();
+        });
+        </script>
+        
+        
 </body>
 </html>

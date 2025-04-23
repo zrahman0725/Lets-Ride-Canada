@@ -1,7 +1,7 @@
 /* Reuse compact summary style */
 .compact-summary {
-    background-color: #f7f1e8;
-    border: 1px solid #d2b48c;
+    background-color: #e0f4ff;
+    border: 1px solid #07a3ee;
     border-radius: 10px;
     padding: 10px 20px;
     max-width: 500px;
@@ -11,8 +11,46 @@
     align-items: center;
     gap: 20px;
     font-size: 0.95rem;
-    color: #444;
+    color: #045f94;
 }
+
+.credit-option:hover {
+    transform: scale(1.02);
+    background-color: #e0f4ff;
+    border-color: #07a3ee;
+}
+
+.credit-option.selected {
+    background-color: #87cbf6;
+    border: 2px solid #045f94;
+    color: white;
+}
+
+/* Next button styles */
+.next-btn {
+    background-color: #079adf;
+    color: white;
+    padding: 12px 30px;
+    width: 300px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    background: linear-gradient(#5fcbfb,#07a3ee);
+}
+
+.next-btn:hover {
+    background: linear-gradient(135deg, #07a3ee, #045f94);
+    transform: scale(1.03);
+}
+
+.next-btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 
 .compact-summary .summary-item {
     display: flex;
@@ -50,17 +88,6 @@
     transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
-.credit-option:hover {
-    transform: scale(1.02);
-    background-color: #f7f1e8;
-}
-
-.credit-option.selected {
-    background-color: #d2b48c;
-    border: 2px solid #8b5e3c;
-    color: white;
-}
-
 /* Navigation buttons */
 .nav-buttons {
     display: flex;
@@ -88,16 +115,13 @@
     width: 100px;
 }
 
-.next-btn {
-    background-color: #d2b48c;
-    color: white;
-    width: 300px;
-}
 
-.next-btn:hover {
-    background-color: #bfa177;
-}
 
 .back-btn:hover {
     background-color: #bbb;
+}
+
+body.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }

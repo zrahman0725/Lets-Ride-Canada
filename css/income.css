@@ -1,6 +1,7 @@
+/* Summary */
 .compact-summary {
-    background-color: #f7f1e8;
-    border: 1px solid #d2b48c;
+    background-color: #e0f4ff;
+    border: 1px solid #07a3ee;
     border-radius: 10px;
     padding: 10px 20px;
     max-width: 500px;
@@ -10,8 +11,56 @@
     align-items: center;
     gap: 20px;
     font-size: 0.95rem;
-    color: #444;
+    color: #045f94;
 }
+
+/* Input Field */
+.income-section input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.income-section input:focus {
+    outline: none;
+    border-color: #07a3ee;
+}
+
+/* Next Button */
+.next-btn {
+    background-color: #079adf;
+    color: white;
+    padding: 12px 30px;
+    width: 300px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    background: linear-gradient(#5fcbfb,#07a3ee);
+}
+
+.next-btn:hover {
+    background: linear-gradient(135deg, #07a3ee, #045f94);
+    transform: scale(1.03);
+}
+
+.next-btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Fade-out transition */
+body.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
 
 .compact-summary .summary-item {
     display: flex;
@@ -29,21 +78,6 @@
     max-width: 500px;
     margin: 0 auto;
     text-align: center;
-}
-
-.income-section input {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.1rem;
-    margin: 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: border-color 0.3s ease;
-}
-
-.income-section input:focus {
-    outline: none;
-    border-color: #d2b48c;
 }
 
 .nav-buttons {
@@ -72,16 +106,36 @@
     width: 100px;
 }
 
-.next-btn {
-    background-color: #d2b48c;
-    color: white;
-    width: 300px;
-}
-
-.next-btn:hover {
-    background-color: #bfa177;
-}
-
 .back-btn:hover {
     background-color: #bbb;
+}
+
+.currency-input {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.currency-input input {
+    width: 100%;
+    padding: 15px 15px 15px 40px;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.currency-input input:focus {
+    outline: none;
+    border-color: #07a3ee;
+}
+
+.currency-symbol {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: #555;
+    pointer-events: none;
 }

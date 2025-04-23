@@ -38,10 +38,34 @@
         <!-- Navigation -->
         <div class="nav-buttons">
             <a href="employment-duration.html" class="btn back-btn">Back</a>
-            <a href="address.html" class="btn next-btn">Next</a>
+            <a href="#" class="btn next-btn disabled" id="nextBtn">Next</a>
         </div>
     </section>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const companyInput = document.getElementById("company-name");
+            const positionInput = document.getElementById("position-title");
+            const nextBtn = document.getElementById("nextBtn");
+        
+            function validateFields() {
+                if (companyInput.value.trim() && positionInput.value.trim()) {
+                    nextBtn.classList.remove("disabled");
+                    nextBtn.href = "address.html";
+                } else {
+                    nextBtn.classList.add("disabled");
+                    nextBtn.href = "#";
+                }
+            }
+        
+            companyInput.addEventListener("input", validateFields);
+            positionInput.addEventListener("input", validateFields);
+        
+            // Validate on load (browser autofill)
+            validateFields();
+        });
+        </script>
+        
 </body>
 </html>

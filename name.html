@@ -11,10 +11,10 @@
     <!-- Progress Bar -->
     <div class="progress-container">
         <div class="progress-info">
-            <span>⏱️ ~1 minute left</span>
+            <span>⏱️ ~3 minute left</span>
         </div>
         <div class="progress-bar">
-            <div class="progress-fill" style="width: 93%;"></div>
+            <div class="progress-fill" style="width: 25%;"></div>
         </div>
     </div>
 
@@ -37,11 +37,36 @@
 
         <!-- Navigation -->
         <div class="nav-buttons">
-            <a href="dob.html" class="btn back-btn">Back</a>
-            <a href="contact.html" class="btn next-btn">Next</a>
+            <a href="trade-in.html" class="btn back-btn">Back</a>
+            <a href="#" class="btn next-btn disabled" id="nextBtn">Next</a>
         </div>
     </section>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const firstName = document.getElementById("first-name");
+            const lastName = document.getElementById("last-name");
+            const nextBtn = document.getElementById("nextBtn");
+        
+            function validateFields() {
+                if (firstName.value.trim() && lastName.value.trim()) {
+                    nextBtn.classList.remove("disabled");
+                    nextBtn.href = "credit-score.html";
+                } else {
+                    nextBtn.classList.add("disabled");
+                    nextBtn.href = "#";
+                }
+            }
+        
+            firstName.addEventListener("input", validateFields);
+            lastName.addEventListener("input", validateFields);
+        
+            // Check immediately in case browser autofilled inputs
+            validateFields();
+        });
+        </script>
+        
+        
 </body>
 </html>

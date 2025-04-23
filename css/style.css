@@ -29,7 +29,7 @@ body, html {
 }
 
 .nav-links a:hover {
-    color: #CBAF8A; /* your warm tan theme */
+    color: #07a3ee; /* your warm tan theme */
 }
 
 .nav-logo img {
@@ -86,9 +86,12 @@ body, html {
     transition: background-color 0.3s;
     background: linear-gradient(#5fcbfb,#07a3ee);
 }
+.cta-btn:hover {
+    background: linear-gradient(135deg, #07a3ee, #045f94); /* deeper hover blue */
+    transform: scale(1.03);
+}
 
 .primary {
-    background-color: #d2b48c;
     color: white;
 }
 
@@ -97,13 +100,13 @@ body, html {
     color: white;
 }
 
-.primary:hover {
+/* .primary:hover {
     background-color: #eee;
 }
 
 .secondary:hover {
     background-color: #555;
-}
+} */
 
 .info-section {
     position: relative;
@@ -211,15 +214,15 @@ body, html {
 
 .progress-fill {
     height: 100%;
-    background-color: #d2b48c;
+    background: linear-gradient(#5fcbfb,#07a3ee);
     width: 20%;
     border-radius: 8px;
     transition: width 0.4s ease;
 }
 
 .selected {
-    background-color: #d2b48c;
-    border: 2px solid #8b5e3c;
+    background-color: #5fcbfb;
+    border: 2px solid #07a3ee;
     color: rgb(0, 0, 0);
     font-weight: bold;
     transition: background-color 0.4s ease, border-color 0.4s ease;
@@ -285,7 +288,7 @@ body, html {
     content: "✔";
     position: absolute;
     left: 0;
-    color: #d2b48c;
+    color: #07a3ee;
     font-weight: bold;
 }
 
@@ -337,8 +340,8 @@ body, html {
 }
 
 .vehicle.selected {
-    background-color: #d2b48c;
-    border: 2px solid #8b5e3c;
+    background-color: #07a3ee;
+    border: 2px solid #045f94;
     color: white;
     font-weight: bold;
     transform: scale(1.05);
@@ -382,4 +385,10 @@ body, html {
 .wave-divider2 svg {
     transform: rotate(180deg);
     transform: scaley(-1);
+}
+
+.next-btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
 }

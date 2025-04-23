@@ -33,14 +33,104 @@
     <section class="dob-section">
         <h2>What Is Your Date of Birth?</h2>
         <input type="text" id="dob" placeholder="dd/mm/yyyy" />
+        <p id="dob-error" class="error-message"></p>
+
 
         <!-- Navigation -->
         <div class="nav-buttons">
             <a href="residency.html" class="btn back-btn">Back</a>
-            <a href="name.html" class="btn next-btn">Next</a>
+            <a href="#" class="btn next-btn disabled" id="nextBtn">Next</a>
         </div>
     </section>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const dobInput = document.getElementById("dob");
+            const nextBtn = document.getElementById("nextBtn");
+            const errorMsg = document.getElementById("dob-error");
+        
+            let lastValue = "";
+        
+            function isValidDateFormat(value) {
+                return /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/.test(value);
+            }
+        
+            function isRealDate(value) {
+                const [day, month, year] = value.split("/").map(Number);
+                const date = new Date(year, month - 1, day);
+                return date.getDate() === day && date.getMonth() === month - 1 && date.getFullYear() === year;
+            }
+        
+            function isValidAge(value) {
+                const [day, month, year] = value.split("/").map(Number);
+                const dob = new Date(year, month - 1, day);
+                const today = new Date();
+                let age = today.getFullYear() - dob.getFullYear();
+                const m = today.getMonth() - dob.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+                    age--;
+                }
+                return age >= 18 && age <= 100;
+            }
+        
+            function validateDOB() {
+                const value = dobInput.value.trim();
+                let message = "";
+        
+                if (value.length < 10) {
+                    errorMsg.textContent = "";
+                    errorMsg.classList.remove("visible");
+                    nextBtn.classList.add("disabled");
+                    nextBtn.href = "#";
+                    return;
+                }
+        
+                if (!isValidDateFormat(value)) {
+                    message = "Please enter the date in dd/mm/yyyy format.";
+                } else if (!isRealDate(value)) {
+                    message = "That doesn't look like a valid calendar date.";
+                } else if (!isValidAge(value)) {
+                    message = "You must be between 18 and 100 years old.";
+                }
+        
+                if (message) {
+                    errorMsg.textContent = message;
+                    errorMsg.classList.add("visible");
+                    nextBtn.classList.add("disabled");
+                    nextBtn.href = "#";
+                } else {
+                    errorMsg.textContent = "";
+                    errorMsg.classList.remove("visible");
+                    nextBtn.classList.remove("disabled");
+                    nextBtn.href = "contact.html";
+                }
+            }
+        
+            dobInput.addEventListener("input", function (e) {
+                const isDeleting = dobInput.value.length < lastValue.length;
+                let cleaned = dobInput.value.replace(/\D/g, "");
+        
+                if (!isDeleting) {
+                    if (cleaned.length >= 3 && cleaned.length <= 4)
+                        cleaned = cleaned.slice(0, 2) + "/" + cleaned.slice(2);
+                    else if (cleaned.length > 4)
+                        cleaned = cleaned.slice(0, 2) + "/" + cleaned.slice(2, 4) + "/" + cleaned.slice(4, 8);
+                }
+        
+                dobInput.value = cleaned;
+                lastValue = dobInput.value;
+        
+                validateDOB();
+            });
+        
+            validateDOB();
+        });
+        </script>
+        
+        
+        
+        
+        
 </body>
 </html>

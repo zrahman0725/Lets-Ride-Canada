@@ -1,6 +1,7 @@
+/* Summary box */
 .compact-summary {
-    background-color: #f7f1e8;
-    border: 1px solid #d2b48c;
+    background-color: #e0f4ff;
+    border: 1px solid #07a3ee;
     border-radius: 10px;
     padding: 10px 20px;
     max-width: 500px;
@@ -10,8 +11,57 @@
     align-items: center;
     gap: 20px;
     font-size: 0.95rem;
-    color: #444;
+    color: #045f94;
 }
+
+/* Input field */
+#dob {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+#dob:focus {
+    outline: none;
+    border-color: #07a3ee;
+}
+
+/* Next button */
+.next-btn {
+    background-color: #079adf;
+    color: white;
+    padding: 12px 30px;
+    width: 300px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    background: linear-gradient(#5fcbfb,#07a3ee);
+}
+
+.next-btn:hover {
+    background: linear-gradient(135deg, #07a3ee, #045f94);
+    transform: scale(1.03);
+}
+
+.next-btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Fade-out */
+body.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
 
 .compact-summary .summary-item {
     display: flex;
@@ -29,22 +79,6 @@
     max-width: 500px;
     margin: 0 auto;
     text-align: center;
-}
-
-#dob {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.1rem;
-    margin: 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: border-color 0.3s ease;
-    text-align: center;
-}
-
-#dob:focus {
-    outline: none;
-    border-color: #d2b48c;
 }
 
 .nav-buttons {
@@ -73,16 +107,18 @@
     width: 100px;
 }
 
-.next-btn {
-    background-color: #d2b48c;
-    color: white;
-    width: 300px;
-}
-
-.next-btn:hover {
-    background-color: #bfa177;
-}
-
 .back-btn:hover {
     background-color: #bbb;
+}
+
+.error-message {
+    color: #d63031;
+    font-size: 0.9rem;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    min-height: 18px;
+    visibility: hidden;
+}
+.error-message.visible {
+    visibility: visible;
 }

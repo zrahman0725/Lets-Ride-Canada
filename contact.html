@@ -33,7 +33,9 @@
     <section class="contact-section">
         <h2>How Can We Reach You?</h2>
         <input type="email" id="email" placeholder="Email Address" />
+        <p class="error-message" id="email-error"></p>
         <input type="tel" id="phone" placeholder="Phone Number" />
+        <p class="error-message" id="phone-error"></p>
 
         <!-- Consent -->
         <div class="consent-box">
@@ -45,8 +47,8 @@
 
         <!-- Final Submit Button -->
         <div class="nav-buttons">
-            <a href="name.html" class="btn back-btn">Back</a>
-            <button class="btn next-btn" id="submit-btn" disabled>Submit Application</button>
+            <a href="dob.html" class="btn back-btn">Back</a>
+            <button type="button" id="submit-btn" class="next-btn" disabled>Submit</button>
         </div>
     </section>
 
@@ -128,6 +130,103 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 </script>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const emailInput = document.getElementById("email");
+        const phoneInput = document.getElementById("phone");
+        const consentCheckbox = document.getElementById("consent-checkbox");
+        const submitBtn = document.getElementById("submit-btn");
+        const emailError = document.getElementById("email-error");
+        const phoneError = document.getElementById("phone-error");
+    
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+        }
+    
+        function isValidPhone(phone) {
+            const digits = phone.replace(/\D/g, "");
+            return digits.length === 10;
+        }
+    
+        function validateForm() {
+            const email = emailInput.value.trim();
+            const phone = phoneInput.value.trim();
+    
+            let valid = true;
+    
+            // Email check
+            if (!isValidEmail(email)) {
+                emailError.textContent = "Please enter a valid email address.";
+                valid = false;
+            } else {
+                emailError.textContent = "";
+            }
+    
+            // Phone check
+            if (!isValidPhone(phone)) {
+                phoneError.textContent = "Enter a 10-digit phone number.";
+                valid = false;
+            } else {
+                phoneError.textContent = "";
+            }
+    
+            // Consent check
+            if (!consentCheckbox.checked) {
+                valid = false;
+            }
+    
+            submitBtn.disabled = !valid;
+        }
+    
+        emailInput.addEventListener("input", validateForm);
+        phoneInput.addEventListener("input", validateForm);
+        consentCheckbox.addEventListener("change", validateForm);
+    
+        validateForm(); // initial state
+    
+        submitBtn.addEventListener("click", async () => {
+            const applicationData = {
+                vehicle: localStorage.getItem('selectedVehicle'),
+                budget: localStorage.getItem('selectedBudget'),
+                tradeIn: localStorage.getItem('tradeInChoice'),
+                creditScore: localStorage.getItem('creditStatus'),
+                employmentStatus: localStorage.getItem('employmentStatus'),
+                monthlyIncome: localStorage.getItem('monthlyIncome'),
+                employmentYears: localStorage.getItem('employmentYears'),
+                employmentMonths: localStorage.getItem('employmentMonths'),
+                company: localStorage.getItem('employmentCompany'),
+                position: localStorage.getItem('employmentPosition'),
+                addressAuto: localStorage.getItem('autocompleteAddress'),
+                street: localStorage.getItem('address_street'),
+                city: localStorage.getItem('address_city'),
+                province: localStorage.getItem('address_province'),
+                postalCode: localStorage.getItem('address_postal-code'),
+                addressYears: localStorage.getItem('addressYears'),
+                addressMonths: localStorage.getItem('addressMonths'),
+                housingType: localStorage.getItem('housingType'),
+                monthlyHousingPayment: localStorage.getItem('monthlyHousingPayment'),
+                isCanadianResident: localStorage.getItem('isCanadianResident'),
+                hasCanadianLicense: localStorage.getItem('hasCanadianLicense'),
+                userDOB: localStorage.getItem('userDOB'),
+                firstName: localStorage.getItem('firstName'),
+                lastName: localStorage.getItem('lastName'),
+                email: emailInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                submittedAt: new Date().toISOString()
+            };
+    
+            try {
+                await db.collection('applications').add(applicationData);
+                alert("Thank you! Your application has been submitted.");
+                localStorage.clear();
+                window.location.href = "index.html";
+            } catch (error) {
+                console.error("Submission error:", error);
+                alert("There was an error submitting your application. Please try again.");
+            }
+        });
+    });
+    </script>
+    
 </body>
 </html>

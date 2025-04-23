@@ -1,6 +1,7 @@
+/* Summary box */
 .compact-summary {
-    background-color: #f7f1e8;
-    border: 1px solid #d2b48c;
+    background-color: #e0f4ff;
+    border: 1px solid #07a3ee;
     border-radius: 10px;
     padding: 10px 20px;
     max-width: 500px;
@@ -10,8 +11,67 @@
     align-items: center;
     gap: 20px;
     font-size: 0.95rem;
-    color: #444;
+    color: #045f94;
 }
+
+/* Duration box styling */
+.duration-box {
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    min-width: 150px;
+    justify-content: space-between;
+}
+
+.duration-box input {
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    width: 50px;
+    color: #045f94;
+    text-align: center;
+}
+
+.duration-box input:focus {
+    outline: none;
+    border-bottom: 2px solid #07a3ee;
+}
+
+/* Next button gradient */
+.next-btn {
+    background-color: #079adf;
+    color: white;
+    padding: 12px 30px;
+    width: 300px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    background: linear-gradient(#5fcbfb,#07a3ee);
+}
+
+.next-btn:hover {
+    background: linear-gradient(135deg, #07a3ee, #045f94);
+    transform: scale(1.03);
+}
+
+.next-btn.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Fade-out animation */
+body.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
 
 .compact-summary .summary-item {
     display: flex;
@@ -38,31 +98,6 @@
     margin-top: 30px;
 }
 
-.duration-box {
-    display: flex;
-    align-items: center;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: 1.1rem;
-    min-width: 150px;
-    justify-content: space-between;
-}
-
-.duration-box input {
-    border: none;
-    background: transparent;
-    font-size: 1.2rem;
-    width: 50px;
-    color: #007aff;
-    text-align: center;
-}
-
-.duration-box input:focus {
-    outline: none;
-}
-
 .nav-buttons {
     display: flex;
     justify-content: center;
@@ -87,16 +122,6 @@
     background-color: #ccc;
     color: #333;
     width: 100px;
-}
-
-.next-btn {
-    background-color: #d2b48c;
-    color: white;
-    width: 300px;
-}
-
-.next-btn:hover {
-    background-color: #bfa177;
 }
 
 .back-btn:hover {

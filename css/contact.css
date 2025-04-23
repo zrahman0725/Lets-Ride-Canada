@@ -1,6 +1,6 @@
 .compact-summary {
-    background-color: #f7f1e8;
-    border: 1px solid #d2b48c;
+    background-color: #e0f4ff;
+    border: 1px solid #07a3ee;
     border-radius: 10px;
     padding: 10px 20px;
     max-width: 500px;
@@ -10,7 +10,44 @@
     align-items: center;
     gap: 20px;
     font-size: 0.95rem;
-    color: #444;
+    color: #045f94;
+}
+
+.contact-section input:focus {
+    outline: none;
+    border-color: #07a3ee;
+}
+
+.next-btn {
+    background-color: #079adf;
+    color: white;
+    padding: 12px 30px;
+    width: 300px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    background: linear-gradient(#5fcbfb,#07a3ee);
+}
+
+.next-btn:hover {
+    background: linear-gradient(135deg, #07a3ee, #045f94);
+    transform: scale(1.03);
+}
+
+#submit-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: #d63031;
+    font-size: 0.9rem;
+    text-align: left;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    min-height: 18px;
 }
 
 .compact-summary .summary-item {
@@ -45,11 +82,6 @@
     transition: border-color 0.3s ease;
 }
 
-.contact-section input:focus {
-    outline: none;
-    border-color: #d2b48c;
-}
-
 .nav-buttons {
     display: flex;
     justify-content: center;
@@ -74,16 +106,6 @@
     background-color: #ccc;
     color: #333;
     width: 100px;
-}
-
-.next-btn {
-    background-color: #d2b48c;
-    color: white;
-    width: 300px;
-}
-
-.next-btn:hover {
-    background-color: #bfa177;
 }
 
 .back-btn:hover {

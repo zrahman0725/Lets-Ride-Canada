@@ -46,10 +46,40 @@
         <!-- Navigation -->
         <div class="nav-buttons">
             <a href="address.html" class="btn back-btn">Back</a>
-            <a href="housing.html" class="btn next-btn">Next</a>
+            <a href="#" class="btn next-btn disabled" id="nextBtn">Next</a>
         </div>
     </section>
 
     <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const yearsInput = document.getElementById("address-years");
+            const monthsInput = document.getElementById("address-months");
+            const nextBtn = document.getElementById("nextBtn");
+        
+            function validateInputs() {
+                const years = parseInt(yearsInput.value.trim(), 10);
+                const months = parseInt(monthsInput.value.trim(), 10);
+        
+                const isValidYears = !isNaN(years) && years >= 0;
+                const isValidMonths = !isNaN(months) && months >= 0 && months <= 11;
+        
+                if ((isValidYears || isValidMonths) && !(years === 0 && months === 0)) {
+                    nextBtn.classList.remove("disabled");
+                    nextBtn.href = "housing.html";
+                } else {
+                    nextBtn.classList.add("disabled");
+                    nextBtn.href = "#";
+                }
+            }
+        
+            yearsInput.addEventListener("input", validateInputs);
+            monthsInput.addEventListener("input", validateInputs);
+        
+            // Run initial validation on load
+            validateInputs();
+        });
+        </script>
+        
 </body>
 </html>

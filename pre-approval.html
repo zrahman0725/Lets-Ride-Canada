@@ -48,7 +48,7 @@
             </a>
         </div>        
         <div class="next-button-container">
-            <a href="budget.html" class="next-btn">Next</a>
+            <a href="#" class="next-btn disabled" id="nextBtn">Next</a>
         </div>
     </section>
 
@@ -57,23 +57,45 @@
 <script src="script.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const selectedType = urlParams.get("type");
+        const vehicleOptions = document.querySelectorAll(".vehicle-grid .vehicle");
+        const nextBtn = document.getElementById("nextBtn");
     
+        // Try loading from localStorage
+        let selectedType = localStorage.getItem("selectedVehicleType");
+    
+        // Mark previously selected option (if it exists)
         if (selectedType) {
-            const vehicleOptions = document.querySelectorAll(".vehicle-grid .vehicle");
-    
             vehicleOptions.forEach(vehicle => {
                 const label = vehicle.querySelector("p").innerText.trim().toLowerCase();
                 if (label.includes(selectedType.toLowerCase())) {
                     vehicle.classList.add("selected");
-                    // Store the selection in localStorage if needed
-                    localStorage.setItem("selectedVehicleType", selectedType);
+                    nextBtn.classList.remove("disabled");
+                    nextBtn.href = "budget.html";
                 }
             });
         }
+    
+        // Handle new selection
+        vehicleOptions.forEach(vehicle => {
+            vehicle.addEventListener("click", function (e) {
+                e.preventDefault(); // prevent jumping immediately
+    
+                // Remove old selection
+                vehicleOptions.forEach(v => v.classList.remove("selected"));
+                this.classList.add("selected");
+    
+                const selectedText = this.querySelector("p").innerText.trim();
+                localStorage.setItem("selectedVehicleType", selectedText);
+    
+                // Enable "Next"
+                nextBtn.classList.remove("disabled");
+                nextBtn.href = "budget.html";
+            });
+        });
     });
     </script>
+    
+    
     
 </body>
 </html>

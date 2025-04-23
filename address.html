@@ -49,10 +49,58 @@
         <!-- Navigation -->
         <div class="nav-buttons">
             <a href="employment-details.html" class="btn back-btn">Back</a>
-            <a href="address-duration.html" class="btn next-btn">Next</a>
+            <a href="#" class="btn next-btn disabled" id="nextBtn">Next</a>
         </div>
     </section>
 
     <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhqhDkfp8d1ceKNeg2-ZwdJ46g_u4p11Q&libraries=places"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const addressInput = document.getElementById("autocomplete-address");
+    if (addressInput && typeof google !== 'undefined') {
+      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+        types: ['address'],
+        componentRestrictions: { country: "ca" } // restricts to Canada
+      });
+    }
+  });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const nextBtn = document.getElementById("nextBtn");
+        const autoInput = document.getElementById("autocomplete-address");
+        const manualSection = document.getElementById("manual-address");
+        const manualFields = ['street', 'city', 'province', 'postal-code'].map(id => document.getElementById(id));
+    
+        function validateAddress() {
+            const isAutoFilled = autoInput.value.trim().length > 5;
+    
+            const isManualFilled = !manualSection.classList.contains("hidden") &&
+                manualFields.every(field => field && field.value.trim());
+    
+            if (isAutoFilled || isManualFilled) {
+                nextBtn.classList.remove("disabled");
+                nextBtn.href = "address-duration.html";
+            } else {
+                nextBtn.classList.add("disabled");
+                nextBtn.href = "#";
+            }
+        }
+    
+        autoInput.addEventListener("input", validateAddress);
+        manualFields.forEach(input => input.addEventListener("input", validateAddress));
+    
+        const toggleManual = document.getElementById("toggle-manual");
+        toggleManual.addEventListener("click", () => {
+            setTimeout(validateAddress, 100); // allow for class toggle to settle
+        });
+    
+        validateAddress(); // run on load
+    });
+    </script>
+    
+
+    
 </body>
 </html>
