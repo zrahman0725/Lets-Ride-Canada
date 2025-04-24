@@ -7,14 +7,25 @@
     <link rel="stylesheet" href="css/pre-approval.css"> <!-- Page-specific styles -->
 </head>
 <body>
+        <!-- Header/Navbar -->
+<header class="navbar" style="max-height: 2rem;">
+    <nav class="nav-container">
+        <div class="nav-logo">
+            <img src="images/Let'sRideLogoBlk.png" alt="Lets Ride Canada Logo">
+        </div>
+        <div class="nav-links">
+            <p>+1 (825)-365-8444</p>
+        </div>
+    </nav>
+</header>
 
     <!-- Progress Bar Section -->
     <div class="progress-container">
-        <div class="progress-info">
-            <span>⏱️ ~4 minutes to complete</span>
-        </div>
         <div class="progress-bar">
             <div class="progress-fill" style="width: 6.67%;"></div>
+        </div>
+        <div class="progress-info">
+            <span>⏱️ ~4 minutes to complete</span>
         </div>
     </div>
 
@@ -57,6 +68,27 @@
 <script src="script.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedType = urlParams.get("type");
+    
+        if (selectedType) {
+            localStorage.setItem("selectedVehicle", selectedType);
+        }
+    });
+
+    const vehicleTypeMap = {
+  "coupes": "Coupes",
+  "sedans": "Sedans",
+  "suv-crossovers": "SUVs & Crossovers"
+  // add more if needed
+};
+
+const formattedType = vehicleTypeMap[selectedType.toLowerCase()] || selectedType;
+localStorage.setItem("selectedVehicle", formattedType);
+
+    </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
         const vehicleOptions = document.querySelectorAll(".vehicle-grid .vehicle");
         const nextBtn = document.getElementById("nextBtn");
     
@@ -94,6 +126,8 @@
         });
     });
     </script>
+
+        
     
     
     
