@@ -1,0 +1,65 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8fcff;
+    color: #045f94;
+    margin: 0;
+    padding: 0;
+}
+
+.upload-section {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    margin-top: 60px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.upload-section h2 {
+    color: #07a3ee;
+    margin-bottom: 10px;
+}
+
+.upload-section label {
+    display: block;
+    font-weight: bold;
+    margin: 20px 0 5px;
+    color: #045f94;
+    text-align: left;
+}
+
+.upload-section input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f2faff;
+    font-size: 0.95rem;
+}
+
+.upload-section button {
+    margin-top: 25px;
+    padding: 12px 30px;
+    background: linear-gradient(#5fcbfb, #07a3ee);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.upload-section button:hover {
+    background: linear-gradient(135deg, #07a3ee, #045f94);
+    transform: scale(1.03);
+}
+
+#uploadStatus {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #045f94;
+}

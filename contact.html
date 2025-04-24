@@ -60,55 +60,7 @@
         consentCheckbox.addEventListener('change', () => {
             submitBtn.disabled = !consentCheckbox.checked;
         });
-
-        submitBtn.addEventListener('click', () => {
-            alert("Thank you! Your application has been submitted successfully.");
-            // You can add actual submission logic here
-        });
     </script>
-    <script>
-        submitBtn.addEventListener('click', async () => {
-            const applicationData = {
-                vehicle: localStorage.getItem('selectedVehicle'),
-                budget: localStorage.getItem('selectedBudget'),
-                tradeIn: localStorage.getItem('tradeInChoice'),
-                creditScore: localStorage.getItem('creditStatus'),
-                employmentStatus: localStorage.getItem('employmentStatus'),
-                monthlyIncome: localStorage.getItem('monthlyIncome'),
-                employmentYears: localStorage.getItem('employmentYears'),
-                employmentMonths: localStorage.getItem('employmentMonths'),
-                company: localStorage.getItem('employmentCompany'),
-                position: localStorage.getItem('employmentPosition'),
-                addressAuto: localStorage.getItem('autocompleteAddress'),
-                street: localStorage.getItem('address_street'),
-                city: localStorage.getItem('address_city'),
-                province: localStorage.getItem('address_province'),
-                postalCode: localStorage.getItem('address_postal-code'),
-                addressYears: localStorage.getItem('addressYears'),
-                addressMonths: localStorage.getItem('addressMonths'),
-                housingType: localStorage.getItem('housingType'),
-                monthlyHousingPayment: localStorage.getItem('monthlyHousingPayment'),
-                isCanadianResident: localStorage.getItem('isCanadianResident'),
-                hasCanadianLicense: localStorage.getItem('hasCanadianLicense'),
-                userDOB: localStorage.getItem('userDOB'),
-                firstName: localStorage.getItem('firstName'),
-                lastName: localStorage.getItem('lastName'),
-                email: localStorage.getItem('userEmail'),
-                phone: localStorage.getItem('userPhone'),
-                submittedAt: new Date().toISOString()
-            };
-        
-            try {
-                await db.collection('applications').add(applicationData);
-                alert("Thank you! Your application has been submitted.");
-                localStorage.clear();
-                window.location.href = "index.html";
-            } catch (error) {
-                console.error("Error submitting application: ", error);
-                alert("There was an error submitting your application. Please try again.");
-            }
-        });
-        </script>
         
     <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -136,8 +88,14 @@
         const phoneInput = document.getElementById("phone");
         const consentCheckbox = document.getElementById("consent-checkbox");
         const submitBtn = document.getElementById("submit-btn");
+    
         const emailError = document.getElementById("email-error");
         const phoneError = document.getElementById("phone-error");
+    
+        let touchedFields = {
+            email: false,
+            phone: false
+        };
     
         function isValidEmail(email) {
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
@@ -151,40 +109,81 @@
         function validateForm() {
             const email = emailInput.value.trim();
             const phone = phoneInput.value.trim();
+            const consent = consentCheckbox.checked;
     
-            let valid = true;
+            let isValid = true;
     
-            // Email check
-            if (!isValidEmail(email)) {
-                emailError.textContent = "Please enter a valid email address.";
-                valid = false;
+            if (touchedFields.email) {
+                if (!isValidEmail(email)) {
+                    emailError.textContent = "Please enter a valid email.";
+                    isValid = false;
+                } else {
+                    emailError.textContent = "";
+                }
+            }
+    
+            if (touchedFields.phone) {
+                if (!isValidPhone(phone)) {
+                    phoneError.textContent = "Enter a valid 10-digit phone number.";
+                    isValid = false;
+                } else {
+                    phoneError.textContent = "";
+                }
+            }
+    
+            submitBtn.disabled = !(isValidEmail(email) && isValidPhone(phone) && consent);
+            if (submitBtn.disabled) {
+                submitBtn.classList.add("disabled");
             } else {
-                emailError.textContent = "";
+                submitBtn.classList.remove("disabled");
             }
-    
-            // Phone check
-            if (!isValidPhone(phone)) {
-                phoneError.textContent = "Enter a 10-digit phone number.";
-                valid = false;
-            } else {
-                phoneError.textContent = "";
-            }
-    
-            // Consent check
-            if (!consentCheckbox.checked) {
-                valid = false;
-            }
-    
-            submitBtn.disabled = !valid;
         }
     
+        // Track blur for error display
+        emailInput.addEventListener("blur", () => {
+            touchedFields.email = true;
+            validateForm();
+        });
+        phoneInput.addEventListener("blur", () => {
+            touchedFields.phone = true;
+            validateForm();
+        });
+    
+        // Live validation
         emailInput.addEventListener("input", validateForm);
         phoneInput.addEventListener("input", validateForm);
         consentCheckbox.addEventListener("change", validateForm);
     
-        validateForm(); // initial state
+        // Initial state
+        validateForm();
     
+        // Submit logic
         submitBtn.addEventListener("click", async () => {
+            const autocompleteAddress = localStorage.getItem('autocompleteAddress');
+            const manualStreet = localStorage.getItem('address_street');
+            const manualCity = localStorage.getItem('address_city');
+            const manualProvince = localStorage.getItem('address_province');
+            const manualPostal = localStorage.getItem('address_postal-code');
+    
+            const usedManual = manualStreet && manualCity && manualProvince && manualPostal;
+            const usedAutocomplete = autocompleteAddress && autocompleteAddress.length > 5;
+    
+            const addressData = usedManual
+                ? {
+                    street: manualStreet,
+                    city: manualCity,
+                    province: manualProvince,
+                    postalCode: manualPostal,
+                    addressAuto: null
+                  }
+                : {
+                    addressAuto: autocompleteAddress,
+                    street: null,
+                    city: null,
+                    province: null,
+                    postalCode: null
+                  };
+    
             const applicationData = {
                 vehicle: localStorage.getItem('selectedVehicle'),
                 budget: localStorage.getItem('selectedBudget'),
@@ -196,11 +195,7 @@
                 employmentMonths: localStorage.getItem('employmentMonths'),
                 company: localStorage.getItem('employmentCompany'),
                 position: localStorage.getItem('employmentPosition'),
-                addressAuto: localStorage.getItem('autocompleteAddress'),
-                street: localStorage.getItem('address_street'),
-                city: localStorage.getItem('address_city'),
-                province: localStorage.getItem('address_province'),
-                postalCode: localStorage.getItem('address_postal-code'),
+                ...addressData,
                 addressYears: localStorage.getItem('addressYears'),
                 addressMonths: localStorage.getItem('addressMonths'),
                 housingType: localStorage.getItem('housingType'),
@@ -227,6 +222,7 @@
         });
     });
     </script>
+    
     
 </body>
 </html>

@@ -140,6 +140,12 @@
     cursor: not-allowed;
 }
 
-#submit-btn:not(:disabled):hover {
-    background-color: #bfa177;
+#submit-btn:disabled,
+.next-btn.disabled {
+    background: linear-gradient(#5fcbfb, #07a3ee);
+    filter: brightness(0.75); /* Dim the button */
+    color: white;
+    opacity: 0.8;
+    cursor: not-allowed;
+    transform: none;
 }

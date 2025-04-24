@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Upload Supporting Documents</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/upload.css" />
+
+</head>
+<body>
+  <div class="upload-section" style="max-width: 500px; margin: auto; padding: 30px;">
+    <h2>Upload Supporting Documents</h2>
+    <p>Please upload a picture of your driver's license and recent pay stubs.</p>
+
+    <label>Driver's License:</label><br />
+    <input type="file" id="licenseUpload" accept="image/*" /><br /><br />
+
+    <label>Pay Stub:</label><br />
+    <input type="file" id="paystubUpload" accept="image/*" /><br /><br />
+
+    <button id="uploadBtn">Upload</button>
+    <p id="uploadStatus"></p>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCLIJCbi0e1-sAC8S7o3t8lNlqZUXgJZhw",
+      authDomain: "let-s-ride-canada.firebaseapp.com",
+      projectId: "let-s-ride-canada",
+      storageBucket: "let-s-ride-canada.appspot.com", // fixed from previous typo
+      messagingSenderId: "395368324236",
+      appId: "1:395368324236:web:2b4f5d1cd5e27a3d9cefa9",
+      measurementId: "G-NWT16E3SR8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const storage = firebase.storage();
+
+    const uploadBtn = document.getElementById("uploadBtn");
+    const licenseInput = document.getElementById("licenseUpload");
+    const paystubInput = document.getElementById("paystubUpload");
+    const uploadStatus = document.getElementById("uploadStatus");
+
+    uploadBtn.addEventListener("click", async () => {
+      uploadStatus.textContent = "Uploading...";
+
+      const uploads = [];
+
+      if (licenseInput.files[0]) {
+        const licenseRef = storage.ref().child(`documents/license_${Date.now()}.jpg`);
+        uploads.push(licenseRef.put(licenseInput.files[0]));
+      }
+
+      if (paystubInput.files[0]) {
+        const paystubRef = storage.ref().child(`documents/paystub_${Date.now()}.jpg`);
+        uploads.push(paystubRef.put(paystubInput.files[0]));
+      }
+
+      try {
+        await Promise.all(uploads);
+        uploadStatus.textContent = "Upload successful!";
+      } catch (err) {
+        console.error("Upload failed:", err);
+        uploadStatus.textContent = "Upload failed. Please try again.";
+      }
+    });
+  </script>
+</body>
+</html>

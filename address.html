@@ -55,17 +55,28 @@
 
     <script src="script.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhqhDkfp8d1ceKNeg2-ZwdJ46g_u4p11Q&libraries=places"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const addressInput = document.getElementById("autocomplete-address");
-    if (addressInput && typeof google !== 'undefined') {
-      const autocomplete = new google.maps.places.Autocomplete(addressInput, {
-        types: ['address'],
-        componentRestrictions: { country: "ca" } // restricts to Canada
-      });
-    }
-  });
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const addressInput = document.getElementById("autocomplete-address");
+        
+            if (addressInput && typeof google !== "undefined") {
+                const autocomplete = new google.maps.places.Autocomplete(addressInput, {
+                    types: ["address"],
+                    componentRestrictions: { country: "ca" }
+                });
+        
+                // 🔑 Capture selected address on place change
+                autocomplete.addListener("place_changed", function () {
+                    const place = autocomplete.getPlace();
+                    if (place && place.formatted_address) {
+                        addressInput.value = place.formatted_address;
+                        localStorage.setItem("autocompleteAddress", place.formatted_address);
+                    }
+                });
+            }
+        });
+        </script>
+        
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const nextBtn = document.getElementById("nextBtn");
