@@ -1,52 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Upload Documents</title>
-  <link rel="stylesheet" href="css/upload.css">
+  <link rel="stylesheet" href="css/upload.css" />
 </head>
 <body>
   <div class="upload-container">
     <h2>Optional Document Upload</h2>
     <p>You may upload a copy of your driver's license and/or pay stub. Images (JPG, PNG, WebP) and PDFs are accepted.</p>
 
-    <!-- License Upload -->
     <div class="upload-section">
       <label for="license-upload">Driver's License (Optional):</label>
       <input type="file" id="license-upload" accept=".jpg,.jpeg,.png,.webp,.pdf" />
       <div id="license-preview" class="file-preview"></div>
     </div>
 
-    <!-- Pay Stub Upload -->
     <div class="upload-section">
       <label for="paystub-upload">Pay Stub (Optional):</label>
       <input type="file" id="paystub-upload" accept=".jpg,.jpeg,.png,.webp,.pdf" />
       <div id="paystub-preview" class="file-preview"></div>
     </div>
 
-    <!-- Upload Button -->
     <button id="upload-btn" class="upload-btn">Finish & Upload</button>
     <div id="upload-status"></div>
   </div>
 
-  <!-- Firebase SDKs -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
   <script>
-    // Your Firebase config (already known from your current setup)
     const firebaseConfig = {
       apiKey: "AIzaSyCLIJCbi0e1-sAC8S7o3t8lNlqZUXgJZhw",
       authDomain: "let-s-ride-canada.firebaseapp.com",
       projectId: "let-s-ride-canada",
       storageBucket: "let-s-ride-canada.appspot.com",
       messagingSenderId: "395368324236",
-      appId: "1:395368324236:web:2b4f5d1cd5e27a3d9cefa9"
+      appId: "1:395368324236:web:2b4f5d1cd5e27a3d9cefa9",
+      measurementId: "G-NWT16E3SR8"
     };
-
     firebase.initializeApp(firebaseConfig);
-    const storage = firebase.storage();
+    const db = firebase.firestore();
   </script>
-  <script src="upload.js"></script>
+
+  <script>
+    const cloudName = "dttz8olxl"; // Replace with your Cloudinary cloud name
+    const uploadPreset = "unsigned_upload"; // Replace with your preset name
+
+    async function uploadToCloudinary(file, docType) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", uploadPreset);
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      document.getElementById("upload-status").innerText = `${docType} uploaded successfully.`;
+      return data.secure_url;
+    }
+
+    document.getElementById("license-upload").addEventListener("change", (e) => {
+      document.getElementById("license-preview").textContent = e.target.files[0]?.name || "";
+    });
+
+    document.getElementById("paystub-upload").addEventListener("change", (e) => {
+      document.getElementById("paystub-preview").textContent = e.target.files[0]?.name || "";
+    });
+
+    document.getElementById("upload-btn").addEventListener("click", async () => {
+      const licenseFile = document.getElementById("license-upload").files[0];
+      const paystubFile = document.getElementById("paystub-upload").files[0];
+      const email = localStorage.getItem("email");
+
+      try {
+        let uploadedUrls = {};
+        if (licenseFile) uploadedUrls.licenseUrl = await uploadToCloudinary(licenseFile, "License");
+        if (paystubFile) uploadedUrls.paystubUrl = await uploadToCloudinary(paystubFile, "Pay Stub");
+
+        const querySnapshot = await db
+          .collection("applications")
+          .where("email", "==", email)
+          .orderBy("submittedAt", "desc")
+          .limit(1)
+          .get();
+
+        if (!querySnapshot.empty) {
+          const docRef = querySnapshot.docs[0].ref;
+          await docRef.update(uploadedUrls);
+          alert("Documents uploaded and saved successfully!");
+        } else {
+          alert("No matching application found.");
+        }
+      } catch (err) {
+        console.error(err);
+        document.getElementById("upload-status").innerText = "Upload failed. Please try again.";
+      }
+    });
+  </script>
 </body>
 </html>

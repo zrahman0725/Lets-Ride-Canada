@@ -212,6 +212,9 @@
     
             try {
                 await db.collection('applications').add(applicationData);
+
+                localStorage.setItem("email", emailInput.value.trim());
+
                 alert("Thank you! Your application has been submitted.");
                 localStorage.clear();
                 window.location.href = "upload.html";
