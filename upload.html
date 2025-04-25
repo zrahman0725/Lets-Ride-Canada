@@ -73,11 +73,15 @@
       const licenseFile = document.getElementById("license-upload").files[0];
       const paystubFile = document.getElementById("paystub-upload").files[0];
       const email = localStorage.getItem("email");
+      console.log("Email for lookup:", email);
+
 
       try {
         let uploadedUrls = {};
         if (licenseFile) uploadedUrls.licenseUrl = await uploadToCloudinary(licenseFile, "License");
         if (paystubFile) uploadedUrls.paystubUrl = await uploadToCloudinary(paystubFile, "Pay Stub");
+
+        console.log("Cloudinary uploaded URLs:", uploadedUrls);
 
         const querySnapshot = await db
           .collection("applications")
@@ -87,13 +91,20 @@
           .get();
 
         if (!querySnapshot.empty) {
+            console.log("Document found:", querySnapshot.docs[0].id);
+
           const docRef = querySnapshot.docs[0].ref;
           await docRef.update(uploadedUrls);
+          localStorage.clear();
           alert("Documents uploaded and saved successfully!");
         } else {
+            console.warn("No matching application found for:", email);
+
           alert("No matching application found.");
         }
       } catch (err) {
+        console.error("Upload or update error:", err);
+
         console.error(err);
         document.getElementById("upload-status").innerText = "Upload failed. Please try again.";
       }
