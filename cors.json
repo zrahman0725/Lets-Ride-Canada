@@ -1,9 +1,0 @@
-[
-    {
-      "origin": ["https://letsridecanada.com", "https://zrahman0725.github.io"],
-      "method": ["GET", "POST", "PUT", "DELETE"],
-      "maxAgeSeconds": 3600,
-      "responseHeader": ["Content-Type", "x-goog-meta-custom"]
-    }
-  ]
-  
