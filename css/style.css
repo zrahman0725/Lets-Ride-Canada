@@ -392,3 +392,142 @@ body, html {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+/* ============================= */
+/* Responsive Styles for style.css */
+/* ============================= */
+
+/* --- 1200px and below (small desktops) --- */
+@media (max-width: 1200px) {
+    .hero-content {
+        flex-direction: row;
+        text-align: center;
+    }
+    .vehicle-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .nav-logo img {
+        margin-left: 0;
+    }
+}
+
+/* --- 991px and below (laptops) --- */
+@media (max-width: 991px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-image img {
+        width: 80%;
+        margin: auto;
+    }
+    .info-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .vehicle-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-images {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .nav-logo img {
+        height: 7rem;
+        margin-left: 0;
+    }
+}
+
+/* --- 768px and below (tablets) --- */
+@media (max-width: 768px) {
+    .vehicle-grid,
+    .vehicle-grid.compact {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .nav-links {
+        display: none; /* optional if you add a hamburger later */
+    }
+    .nav-logo img {
+        height: 7rem;
+        margin-left: 0;
+    }
+    .nav-container {
+        height: 4rem;
+    }
+    .info-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* --- 617px and below (small tablets/phones) --- */
+@media (max-width: 617px) {
+    .vehicle-grid,
+    .vehicle-grid.compact {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    .grid-images {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- 450px and below (phones) --- */
+@media (max-width: 450px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .info-section h2 {
+        font-size: 1.5rem;
+    }
+    .vehicle-grid,
+    .vehicle-grid.compact {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        max-width: 350px;
+        margin: 0 auto;
+        padding: 8px;
+    }
+}
+
+/* --- 365px and below (small phones) --- */
+@media (max-width: 365px) {
+    .hero h1 {
+        font-size: 1.7rem;
+    }
+    .hero p {
+        font-size: 0.9rem;
+    }
+    .info-section h2 {
+        font-size: 1.3rem;
+    }
+    .vehicle-grid,
+    .vehicle-grid.compact {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        max-width: 320px;
+        margin: 0 auto;
+        padding: 6px;
+    }
+    .nav-logo img {
+        height: 7rem;
+        margin-left: 0;
+    }
+}
