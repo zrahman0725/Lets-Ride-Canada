@@ -87,3 +87,103 @@ body.fade-out {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
+
+/* ============================= */
+/* Full Responsive Styles for budget.css */
+/* ============================= */
+
+/* --- 1200px and below (small desktops) --- */
+@media (max-width: 1200px) {
+    .budget-selection {
+        max-width: 550px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+}
+
+/* --- 991px and below (laptops) --- */
+@media (max-width: 991px) {
+    .budget-selection {
+        max-width: 500px;
+    }
+
+    .next-btn {
+        width: 250px;
+    }
+}
+
+/* --- 768px and below (tablets and large phones) --- */
+@media (max-width: 768px) {
+    .budget-selection {
+        max-width: 450px;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .budget-option {
+        font-size: 1rem;
+        padding: 12px 18px;
+    }
+
+    .next-btn {
+        width: 100%;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* --- 617px and below (small tablets / big phones) --- */
+@media (max-width: 617px) {
+    .budget-selection {
+        max-width: 400px;
+    }
+
+    .budget-option {
+        font-size: 0.95rem;
+        padding: 10px 16px;
+    }
+
+    .btn {
+        font-size: 0.95rem;
+        padding: 10px 16px;
+    }
+}
+
+/* --- 450px and below (phones) --- */
+@media (max-width: 450px) {
+    .budget-selection {
+        max-width: 350px;
+        padding: 0 10px;
+    }
+
+    .budget-option {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+}
+
+/* --- 365px and below (small phones) --- */
+@media (max-width: 365px) {
+    .budget-selection {
+        max-width: 320px;
+    }
+
+    .budget-option {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+}

@@ -127,3 +127,113 @@ body.fade-out {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
+
+
+/* ============================= */
+/* Full Responsive Styles for trade-in.css */
+/* ============================= */
+
+/* --- 1200px and below (small desktops) --- */
+@media (max-width: 1200px) {
+    .trade-in-section {
+        max-width: 550px;
+        padding: 0 20px;
+    }
+}
+
+/* --- 991px and below (laptops) --- */
+@media (max-width: 991px) {
+    .trade-in-section {
+        max-width: 500px;
+    }
+    
+    .compact-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        max-width: 500px;
+        padding: 15px;
+    }
+}
+
+/* --- 768px and below (tablets) --- */
+@media (max-width: 768px) {
+    .trade-in-section {
+        max-width: 450px;
+        margin: 0 auto;
+    }
+
+    .trade-options {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .trade-option {
+        font-size: 1rem;
+        padding: 12px 18px;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .compact-summary {
+        max-width: 450px;
+    }
+}
+
+/* --- 617px and below (small tablets / phones) --- */
+@media (max-width: 617px) {
+    .trade-in-section {
+        max-width: 400px;
+    }
+
+    .trade-option {
+        font-size: 0.95rem;
+        padding: 10px 16px;
+    }
+
+    .compact-summary {
+        max-width: 400px;
+    }
+}
+
+/* --- 450px and below (phones) --- */
+@media (max-width: 450px) {
+    .trade-in-section {
+        max-width: 350px;
+        padding: 0 10px;
+    }
+
+    .trade-option {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .compact-summary {
+        max-width: 350px;
+    }
+}
+
+/* --- 365px and below (small phones) --- */
+@media (max-width: 365px) {
+    .trade-in-section {
+        max-width: 320px;
+    }
+
+    .trade-option {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+
+    .compact-summary {
+        max-width: 320px;
+    }
+}
+
+/* --- Always fix the logo on all screens --- */
+.nav-logo img {
+    height: 7rem;
+    margin-left: 0;
+}
