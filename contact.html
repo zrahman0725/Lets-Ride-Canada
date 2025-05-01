@@ -75,188 +75,169 @@
         });
     </script>
         
-    <!-- Firebase SDK -->
+<!-- EmailJS and Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
-<script>
-  // ✅ Replace with your actual config
-  const firebaseConfig = {
-  apiKey: "AIzaSyCLIJCbi0e1-sAC8S7o3t8lNlqZUXgJZhw",
-  authDomain: "let-s-ride-canada.firebaseapp.com",
-  projectId: "let-s-ride-canada",
-  storageBucket: "let-s-ride-canada.firebasestorage.app",
-  messagingSenderId: "395368324236",
-  appId: "1:395368324236:web:2b4f5d1cd5e27a3d9cefa9",
-  measurementId: "G-NWT16E3SR8"
-};
-
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        emailjs.init('F89d1AT5MwUHDhKLy');
 
-        const contactForm = document.getElementById('submit-btn');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-                emailjs.sendForm('service_r4undbs', 'template_hm0zteh', contactForm)
-                    .then((response) => {
-                        contactForm.reset();
-                    })
-                    .catch((error) => {
-                        alert('Oops! There was a problem submitting your form. Please try again later.');
-                    });
-            });
-        }
-    });
-</script>
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const emailInput = document.getElementById("email");
-        const phoneInput = document.getElementById("phone");
-        const consentCheckbox = document.getElementById("consent-checkbox");
-        const submitBtn = document.getElementById("submit-btn");
-    
-        const emailError = document.getElementById("email-error");
-        const phoneError = document.getElementById("phone-error");
-    
-        let touchedFields = {
-            email: false,
-            phone: false
-        };
-    
-        function isValidEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-        }
-    
-        function isValidPhone(phone) {
-            const digits = phone.replace(/\D/g, "");
-            return digits.length === 10;
-        }
-    
-        function validateForm() {
-            const email = emailInput.value.trim();
-            const phone = phoneInput.value.trim();
-            const consent = consentCheckbox.checked;
-    
-            let isValid = true;
-    
-            if (touchedFields.email) {
-                if (!isValidEmail(email)) {
-                    emailError.textContent = "Please enter a valid email.";
-                    isValid = false;
-                } else {
-                    emailError.textContent = "";
-                }
-            }
-    
-            if (touchedFields.phone) {
-                if (!isValidPhone(phone)) {
-                    phoneError.textContent = "Enter a valid 10-digit phone number.";
-                    isValid = false;
-                } else {
-                    phoneError.textContent = "";
-                }
-            }
-    
-            submitBtn.disabled = !(isValidEmail(email) && isValidPhone(phone) && consent);
-            if (submitBtn.disabled) {
-                submitBtn.classList.add("disabled");
+document.addEventListener("DOMContentLoaded", function () {
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCLIJCbi0e1-sAC8S7o3t8lNlqZUXgJZhw",
+        authDomain: "let-s-ride-canada.firebaseapp.com",
+        projectId: "let-s-ride-canada",
+        storageBucket: "let-s-ride-canada.firebasestorage.app",
+        messagingSenderId: "395368324236",
+        appId: "1:395368324236:web:2b4f5d1cd5e27a3d9cefa9",
+        measurementId: "G-NWT16E3SR8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Initialize EmailJS
+    emailjs.init('F89d1AT5MwUHDhKLy');
+
+    const emailInput = document.getElementById("email");
+    const phoneInput = document.getElementById("phone");
+    const consentCheckbox = document.getElementById("consent-checkbox");
+    const submitBtn = document.getElementById("submit-btn");
+
+    const emailError = document.getElementById("email-error");
+    const phoneError = document.getElementById("phone-error");
+
+    let touchedFields = { email: false, phone: false };
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    }
+
+    function isValidPhone(phone) {
+        const digits = phone.replace(/\D/g, "");
+        return digits.length === 10;
+    }
+
+    function validateForm() {
+        const email = emailInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const consent = consentCheckbox.checked;
+        let isValid = true;
+
+        if (touchedFields.email) {
+            if (!isValidEmail(email)) {
+                emailError.textContent = "Please enter a valid email.";
+                isValid = false;
             } else {
-                submitBtn.classList.remove("disabled");
+                emailError.textContent = "";
             }
         }
-    
-        // Track blur for error display
-        emailInput.addEventListener("blur", () => {
-            touchedFields.email = true;
-            validateForm();
-        });
-        phoneInput.addEventListener("blur", () => {
-            touchedFields.phone = true;
-            validateForm();
-        });
-    
-        // Live validation
-        emailInput.addEventListener("input", validateForm);
-        phoneInput.addEventListener("input", validateForm);
-        consentCheckbox.addEventListener("change", validateForm);
-    
-        // Initial state
-        validateForm();
-    
-        // Submit logic
-        submitBtn.addEventListener("click", async () => {
-            const autocompleteAddress = localStorage.getItem('autocompleteAddress');
-            const manualStreet = localStorage.getItem('address_street');
-            const manualCity = localStorage.getItem('address_city');
-            const manualProvince = localStorage.getItem('address_province');
-            const manualPostal = localStorage.getItem('address_postal-code');
-    
-            const usedManual = manualStreet && manualCity && manualProvince && manualPostal;
-            const usedAutocomplete = autocompleteAddress && autocompleteAddress.length > 5;
-    
-            const addressData = usedManual
-                ? {
-                    street: manualStreet,
-                    city: manualCity,
-                    province: manualProvince,
-                    postalCode: manualPostal,
-                    addressAuto: null
-                  }
-                : {
-                    addressAuto: autocompleteAddress,
-                    street: null,
-                    city: null,
-                    province: null,
-                    postalCode: null
-                  };
-    
-            const applicationData = {
-                vehicle: localStorage.getItem('selectedVehicle'),
-                budget: localStorage.getItem('selectedBudget'),
-                tradeIn: localStorage.getItem('tradeInChoice'),
-                creditScore: localStorage.getItem('creditStatus'),
-                employmentStatus: localStorage.getItem('employmentStatus'),
-                monthlyIncome: localStorage.getItem('monthlyIncome'),
-                employmentYears: localStorage.getItem('employmentYears'),
-                employmentMonths: localStorage.getItem('employmentMonths'),
-                company: localStorage.getItem('employmentCompany'),
-                position: localStorage.getItem('employmentPosition'),
-                ...addressData,
-                addressYears: localStorage.getItem('addressYears'),
-                addressMonths: localStorage.getItem('addressMonths'),
-                housingType: localStorage.getItem('housingType'),
-                monthlyHousingPayment: localStorage.getItem('monthlyHousingPayment'),
-                isCanadianResident: localStorage.getItem('isCanadianResident'),
-                hasCanadianLicense: localStorage.getItem('hasCanadianLicense'),
-                userDOB: localStorage.getItem('userDOB'),
-                firstName: localStorage.getItem('firstName'),
-                lastName: localStorage.getItem('lastName'),
-                email: emailInput.value.trim(),
-                phone: phoneInput.value.trim(),
-                submittedAt: new Date().toISOString()
-            };
-    
-            try {
-                await db.collection('applications').add(applicationData);
 
-                localStorage.setItem("email", emailInput.value.trim());
-
-                alert("Thank you! Your application has been submitted.");
-                window.location.href = "upload.html";
-            } catch (error) {
-                console.error("Submission error:", error);
-                alert("There was an error submitting your application. Please try again.");
+        if (touchedFields.phone) {
+            if (!isValidPhone(phone)) {
+                phoneError.textContent = "Enter a valid 10-digit phone number.";
+                isValid = false;
+            } else {
+                phoneError.textContent = "";
             }
-        });
+        }
+
+        submitBtn.disabled = !(isValidEmail(email) && isValidPhone(phone) && consent);
+        if (submitBtn.disabled) {
+            submitBtn.classList.add("disabled");
+        } else {
+            submitBtn.classList.remove("disabled");
+        }
+    }
+
+    // Track blur for error display
+    emailInput.addEventListener("blur", () => {
+        touchedFields.email = true;
+        validateForm();
     });
-    </script>
+    phoneInput.addEventListener("blur", () => {
+        touchedFields.phone = true;
+        validateForm();
+    });
+
+    emailInput.addEventListener("input", validateForm);
+    phoneInput.addEventListener("input", validateForm);
+    consentCheckbox.addEventListener("change", validateForm);
+
+    validateForm();
+
+    submitBtn.addEventListener("click", async () => {
+        const autocompleteAddress = localStorage.getItem('autocompleteAddress');
+        const manualStreet = localStorage.getItem('address_street');
+        const manualCity = localStorage.getItem('address_city');
+        const manualProvince = localStorage.getItem('address_province');
+        const manualPostal = localStorage.getItem('address_postal-code');
+
+        const usedManual = manualStreet && manualCity && manualProvince && manualPostal;
+        const usedAutocomplete = autocompleteAddress && autocompleteAddress.length > 5;
+
+        const addressData = usedManual
+            ? {
+                street: manualStreet,
+                city: manualCity,
+                province: manualProvince,
+                postalCode: manualPostal,
+                addressAuto: null
+            }
+            : {
+                addressAuto: autocompleteAddress,
+                street: null,
+                city: null,
+                province: null,
+                postalCode: null
+            };
+
+        const applicationData = {
+            vehicle: localStorage.getItem('selectedVehicle'),
+            budget: localStorage.getItem('selectedBudget'),
+            tradeIn: localStorage.getItem('tradeInChoice'),
+            creditScore: localStorage.getItem('creditStatus'),
+            employmentStatus: localStorage.getItem('employmentStatus'),
+            monthlyIncome: localStorage.getItem('monthlyIncome'),
+            employmentYears: localStorage.getItem('employmentYears'),
+            employmentMonths: localStorage.getItem('employmentMonths'),
+            company: localStorage.getItem('employmentCompany'),
+            position: localStorage.getItem('employmentPosition'),
+            ...addressData,
+            addressYears: localStorage.getItem('addressYears'),
+            addressMonths: localStorage.getItem('addressMonths'),
+            housingType: localStorage.getItem('housingType'),
+            monthlyHousingPayment: localStorage.getItem('monthlyHousingPayment'),
+            isCanadianResident: localStorage.getItem('isCanadianResident'),
+            hasCanadianLicense: localStorage.getItem('hasCanadianLicense'),
+            userDOB: localStorage.getItem('userDOB'),
+            firstName: localStorage.getItem('firstName'),
+            lastName: localStorage.getItem('lastName'),
+            email: emailInput.value.trim(),
+            phone: phoneInput.value.trim(),
+            submittedAt: new Date().toISOString()
+        };
+
+        try {
+            await db.collection('applications').add(applicationData);
+            localStorage.setItem("email", emailInput.value.trim());
+
+            // ✅ EmailJS send
+            await emailjs.send('service_r4undbs', 'template_hm0zteh', {
+                user_email: emailInput.value.trim(),
+                user_phone: phoneInput.value.trim()
+            });
+
+            alert("Thank you! Your application has been submitted.");
+            window.location.href = "upload.html";
+        } catch (error) {
+            console.error("Submission or email error:", error);
+            alert("There was an error submitting your application. Please try again.");
+        }
+    });
+});
+</script>
+
     
     
 </body>
