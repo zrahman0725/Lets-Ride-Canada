@@ -104,3 +104,101 @@
 .back-btn:hover {
     background-color: #bbb;
 }
+
+/* ============================= */
+/* Full Responsive Styles for name.css */
+/* ============================= */
+
+/* --- 1200px and below (small desktops) --- */
+@media (max-width: 1200px) {
+    .name-section {
+        max-width: 550px;
+        padding: 0 20px;
+    }
+}
+
+/* --- 991px and below (laptops) --- */
+@media (max-width: 991px) {
+    .name-section {
+        max-width: 500px;
+    }
+
+    .compact-summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        max-width: 500px;
+        padding: 15px;
+    }
+}
+
+/* --- 768px and below (tablets and large phones) --- */
+@media (max-width: 768px) {
+    .name-section {
+        max-width: 450px;
+        margin: 0 auto;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .compact-summary {
+        max-width: 450px;
+    }
+
+    .name-section input {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .next-btn {
+        width: 100%;
+    }
+}
+
+/* --- 617px and below (small tablets / phones) --- */
+@media (max-width: 617px) {
+    .name-section {
+        max-width: 400px;
+    }
+
+    .compact-summary {
+        max-width: 400px;
+    }
+}
+
+/* --- 450px and below (phones) --- */
+@media (max-width: 450px) {
+    .name-section {
+        max-width: 350px;
+        padding: 0 10px;
+    }
+
+    .compact-summary {
+        max-width: 350px;
+    }
+
+    .name-section input {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}
+
+/* --- 365px and below (smallest phones) --- */
+@media (max-width: 365px) {
+    .name-section {
+        max-width: 320px;
+    }
+
+    .compact-summary {
+        max-width: 320px;
+    }
+
+    .name-section input {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+}
+

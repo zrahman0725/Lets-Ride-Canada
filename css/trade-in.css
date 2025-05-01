@@ -232,8 +232,3 @@ body.fade-out {
     }
 }
 
-/* --- Always fix the logo on all screens --- */
-.nav-logo img {
-    height: 7rem;
-    margin-left: 0;
-}

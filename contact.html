@@ -95,6 +95,26 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        emailjs.init('F89d1AT5MwUHDhKLy');
+
+        const contactForm = document.getElementById('submit-btn');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                emailjs.sendForm('service_r4undbs', 'template_hm0zteh', contactForm)
+                    .then((response) => {
+                        contactForm.reset();
+                    })
+                    .catch((error) => {
+                        alert('Oops! There was a problem submitting your form. Please try again later.');
+                    });
+            });
+        }
+    });
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const emailInput = document.getElementById("email");
