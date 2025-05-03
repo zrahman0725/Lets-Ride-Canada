@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leads</title>
+  <link rel="stylesheet" href="css/leads.css" />
+</head>
+<body>
+  <div class="leads-container">
+    <button onclick="window.location.href='admin.html'" class="back-button">← Back to Admin</button>
+    <h1>Submitted Applications</h1>
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search by Name or Reference ID..."
+      class="search-bar"
+    />
+
+    <table id="leads-table">
+      <thead>
+        <tr>
+          <th>Ref ID</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody id="leads-body">
+        <!-- Leads will be injected here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCLIJCbi0e1-sAC8S7o3t8lNlqZUXgJZhw",
+      authDomain: "let-s-ride-canada.firebaseapp.com",
+      projectId: "let-s-ride-canada",
+      storageBucket: "let-s-ride-canada.firebasestorage.app",
+      messagingSenderId: "395368324236",
+      appId: "1:395368324236:web:2b4f5d1cd5e27a3d9cefa9",
+      measurementId: "G-NWT16E3SR8"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "admin-login.html";
+      }
+    });
+
+    async function loadLeads() {
+      const tableBody = document.getElementById("leads-body");
+      const searchInput = document.getElementById("searchInput");
+      let leads = [];
+
+      try {
+        const snapshot = await db.collection("applications").get();
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const firstName = (data.firstName || "").trim().toLowerCase();
+          const lastName = (data.lastName || "").trim().toLowerCase();
+
+          leads.push({
+            id: doc.id,
+            name: `${firstName} ${lastName}`.trim(),
+            nameConcat: `${firstName}${lastName}`,
+            phone: data.phone || "",
+            email: data.email || ""
+          });
+        });
+
+        renderTable(leads);
+
+        searchInput.addEventListener("input", () => {
+          const query = searchInput.value.toLowerCase().replace(/\s/g, '');
+          const filtered = leads.filter(lead =>
+            lead.id.toLowerCase().includes(query) ||
+            lead.name.replace(/\s/g, '').includes(query) ||
+            lead.nameConcat.includes(query)
+          );
+          renderTable(filtered);
+        });
+
+      } catch (error) {
+        console.error("Error loading leads:", error);
+      }
+    }
+
+    function renderTable(data) {
+      const tableBody = document.getElementById("leads-body");
+      tableBody.innerHTML = "";
+
+      data.forEach(lead => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><a href="application-detail.html" class="ref-link" data-id="${lead.id}">${lead.id}</a></td>
+          <td>${lead.name}</td>
+          <td>${lead.phone}</td>
+          <td>${lead.email}</td>
+        `;
+        row.querySelector(".ref-link").addEventListener("click", function (e) {
+          e.preventDefault();
+          localStorage.setItem("selectedApplicationId", this.dataset.id);
+          window.location.href = "application-detail.html";
+        });
+        tableBody.appendChild(row);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadLeads);
+  </script>
+</body>
+</html>

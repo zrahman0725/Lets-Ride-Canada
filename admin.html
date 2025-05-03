@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <div class="admin-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Dashboard</h2>
+      <nav>
+        <a href="#">Home</a>
+        <a href="#">Leads</a>
+        <a href="#">Upload Blog</a>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <section class="quick-access">
+        <h2>Quick Access</h2>
+        <button onclick="location.href='leads.html'">View Leads</button>
+      </section>
+
+      <section class="news-section">
+        <h2>Recent Blog Posts</h2>
+        <div class="news-card">
+          <img src="images/thumb1.jpg" alt="Blog 1 Thumbnail">
+          <div class="news-info">
+            <h3>Spring Deals Are Here!</h3>
+            <p>Discover the latest discounts and offers.</p>
+          </div>
+        </div>
+        <div class="news-card">
+          <img src="images/thumb2.jpg" alt="Blog 2 Thumbnail">
+          <div class="news-info">
+            <h3>Why Finance with Us?</h3>
+            <p>Learn the benefits of applying through our dealership.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Firebase Auth SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCLIJCbi0e1-sAC8S7o3t8lNlqZUXgJZhw",
+      authDomain: "let-s-ride-canada.firebaseapp.com",
+      projectId: "let-s-ride-canada",
+      storageBucket: "let-s-ride-canada.firebasestorage.app",
+      messagingSenderId: "395368324236",
+      appId: "1:395368324236:web:2b4f5d1cd5e27a3d9cefa9",
+      measurementId: "G-NWT16E3SR8"
+    };
+
+    // Init
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Protect Page
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "admin-login.html";
+      }
+    });
+
+    // Logout Function
+    function logout() {
+      auth.signOut().then(() => {
+        window.location.href = "admin-login.html";
+      });
+    }
+  </script>
+</body>
+</html>
