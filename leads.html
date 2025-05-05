@@ -60,42 +60,43 @@
     });
 
     async function loadLeads() {
-      const tableBody = document.getElementById("leads-body");
-      const searchInput = document.getElementById("searchInput");
-      let leads = [];
+  const tableBody = document.getElementById("leads-body");
+  const searchInput = document.getElementById("searchInput");
+  let leads = [];
 
-      try {
-        const snapshot = await db.collection("applications").get();
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const firstName = (data.firstName || "").trim().toLowerCase();
-          const lastName = (data.lastName || "").trim().toLowerCase();
+  try {
+    const snapshot = await db.collection("applications").orderBy("submittedAt", "desc").get();
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const firstName = (data.firstName || "").trim().toLowerCase();
+      const lastName = (data.lastName || "").trim().toLowerCase();
 
-          leads.push({
-            id: doc.id,
-            name: `${firstName} ${lastName}`.trim(),
-            nameConcat: `${firstName}${lastName}`,
-            phone: data.phone || "",
-            email: data.email || ""
-          });
-        });
+      leads.push({
+        id: doc.id,
+        name: `${firstName} ${lastName}`.trim(),
+        nameConcat: `${firstName}${lastName}`,
+        phone: data.phone || "",
+        email: data.email || ""
+      });
+    });
 
-        renderTable(leads);
+    renderTable(leads);
 
-        searchInput.addEventListener("input", () => {
-          const query = searchInput.value.toLowerCase().replace(/\s/g, '');
-          const filtered = leads.filter(lead =>
-            lead.id.toLowerCase().includes(query) ||
-            lead.name.replace(/\s/g, '').includes(query) ||
-            lead.nameConcat.includes(query)
-          );
-          renderTable(filtered);
-        });
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase().replace(/\s/g, '');
+      const filtered = leads.filter(lead =>
+        lead.id.toLowerCase().includes(query) ||
+        lead.name.replace(/\s/g, '').includes(query) ||
+        lead.nameConcat.includes(query)
+      );
+      renderTable(filtered);
+    });
 
-      } catch (error) {
-        console.error("Error loading leads:", error);
-      }
-    }
+  } catch (error) {
+    console.error("Error loading leads:", error);
+  }
+}
+
 
     function renderTable(data) {
       const tableBody = document.getElementById("leads-body");
