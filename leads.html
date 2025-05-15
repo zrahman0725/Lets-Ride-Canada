@@ -21,12 +21,14 @@
     <table id="leads-table">
       <thead>
         <tr>
+          <th>Contacted</th>
           <th>Ref ID</th>
           <th>Name</th>
           <th>Phone</th>
           <th>Email</th>
         </tr>
       </thead>
+      
       <tbody id="leads-body">
         <!-- Leads will be injected here -->
       </tbody>
@@ -76,8 +78,10 @@
         name: `${firstName} ${lastName}`.trim(),
         nameConcat: `${firstName}${lastName}`,
         phone: data.phone || "",
-        email: data.email || ""
+        email: data.email || "",
+        contacted: data.contacted === true
       });
+
     });
 
     renderTable(leads);
@@ -98,26 +102,46 @@
 }
 
 
-    function renderTable(data) {
-      const tableBody = document.getElementById("leads-body");
-      tableBody.innerHTML = "";
+function renderTable(data) {
+  const tableBody = document.getElementById("leads-body");
+  tableBody.innerHTML = "";
 
-      data.forEach(lead => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td><a href="application-detail.html" class="ref-link" data-id="${lead.id}">${lead.id}</a></td>
-          <td>${lead.name}</td>
-          <td>${lead.phone}</td>
-          <td>${lead.email}</td>
-        `;
-        row.querySelector(".ref-link").addEventListener("click", function (e) {
-          e.preventDefault();
-          localStorage.setItem("selectedApplicationId", this.dataset.id);
-          window.location.href = "application-detail.html";
+  data.forEach(lead => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td><input type="checkbox" class="contact-checkbox" ${lead.contacted ? "checked" : ""} data-id="${lead.id}" /></td>
+      <td><a href="application-detail.html" class="ref-link" data-id="${lead.id}">${lead.id}</a></td>
+      <td>${lead.name}</td>
+      <td>${lead.phone}</td>
+      <td>${lead.email}</td>
+    `;
+
+    // Save checkbox change
+    const checkbox = row.querySelector(".contact-checkbox");
+    checkbox.addEventListener("change", function () {
+      const isChecked = this.checked;
+      const docId = this.dataset.id;
+      db.collection("applications").doc(docId).update({ contacted: isChecked })
+        .then(() => {
+          console.log(`Marked ${docId} as ${isChecked ? "contacted" : "not contacted"}`);
+        })
+        .catch(err => {
+          alert("Failed to update contacted status.");
+          console.error(err);
         });
-        tableBody.appendChild(row);
-      });
-    }
+    });
+
+    // Ref link navigation
+    row.querySelector(".ref-link").addEventListener("click", function (e) {
+      e.preventDefault();
+      localStorage.setItem("selectedApplicationId", this.dataset.id);
+      window.location.href = "application-detail.html";
+    });
+
+    tableBody.appendChild(row);
+  });
+}
+
 
     document.addEventListener("DOMContentLoaded", loadLeads);
   </script>
